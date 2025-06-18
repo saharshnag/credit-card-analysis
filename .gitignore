@@ -1,0 +1,49 @@
+# Ignore Python cache files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore environment files
+.env
+.venv/
+env/
+venv/
+*.egg-info/
+pip-wheel-metadata/
+
+# Ignore compiled files/logs
+*.log
+*.sqlite3
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore Power BI auto-backup files
+*.pbix~
+*.pbit~
+
+# Ignore raw data files (optional – keep clean project repo)
+data/*.csv
+
+# Ignore outputs (optional – regenerate from source)
+outputs/
+charts/
+*.pdf
+*.png
+
+# Ignore local IDE/editor settings
+.vscode/
+.idea/
+
+# Ignore exported dashboards
+*.pbix
+*.pbix.pdf
+
+# Optional: GitHub Pages cache or other tools
+_site/
+.cache/
