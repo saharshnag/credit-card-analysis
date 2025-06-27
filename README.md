@@ -6,6 +6,7 @@ This project analyzes credit card transactions and customer attributes to uncove
 	- Prepare and clean raw credit card datasets using SQL and Python.
 	- Analyze fraudulent transaction trends across time, geography, and customer profiles.
 	- Profile customer credit risk using demographic, financial, and repayment data.
+	- Segment customers using RFM modeling for loyalty and marketing strategies.
 	- Build a Power BI dashboard that supports business decision-making.
 	- Document findings for a portfolio-ready case study.
 
@@ -22,9 +23,10 @@ This project analyzes credit card transactions and customer attributes to uncove
 🔄 ETL Process Summary
 	- Cleaned both datasets in Python (removed PII, fixed column types, dropped irrelevant fields).
 	- Imported cleaned data into MySQL using LOAD DATA INFILE and SQLAlchemy.
-	- Built two primary tables:
+	- Built three primary tables/views:
 		- transactions_fraud: Transaction-level fraud data (incl. time, location, merchant).
 		- credit_risk_uci: Customer credit history and repayment attributes.
+		- vw_CreditCard_RFM: Recency, Frequency, Monetary segmentation scores with segment labels.
 	- Verified schema integrity, primary keys, and nulls.
 	- Connected Power BI to MySQL for dashboard development.
 
@@ -36,12 +38,6 @@ Dashboard 1 — Credit Risk Overview
 	- Repayment Behavior for PAY_0 
 	- KPI Cards: Overall Default Rate, Avg Payment %, Avg Credit Limit, Avg Monthly Bill
 
-	- Fraud Rate by Category
-	- Transaction Amount Bands
-	- State-Level Fraud Heatmap
-	- Fraud by Age Group, Gender, and Job
-
-
 Dashboard 2 — Fraud Analytics
 
 	- Fraud by Time of Day
@@ -51,11 +47,20 @@ Dashboard 2 — Fraud Analytics
 	- Fraud by Age Group, Gender, and Job
 	- KPI Cards: Total Transactions, Fraud Transactions, Fraud Rate, Avg Transaction Amount
 
+Dashboard 3 — RFM Segmentation
+
+	- RFM segment distribution (Premium, Loyal, Potential, At Risk)
+	- Customers by Monetary bands
+	- Customers by Frequency bands
+	- Average transaction amount by Month
+	- KPI Cards: # of Customers, # of Premium Customers, # of Loyal Customers, # of Potential Customers, # of At-Risk Customers
+
 📂 Outputs / Visuals
 Available in outputs/charts/ folder:
 
 	- Credit_Risk_Overview.png
 	- Fraud Analysis.png
+	- RFM_Segmentation.png
 	- Full dashboard export: outputs/Credit_Card_Analytics_Dashboard.pdf
 
 💡 Key Business Insights
@@ -67,6 +72,8 @@ Available in outputs/charts/ folder:
 	💳 Divorced customers show highest default rate (~30%).
 	📉 Only 10% of customers are high-risk, but they account for 60% of defaults.
 	💸 Avg payment ratio = 10% of bill → revolving credit behavior.
+	🏆 Premium customers identified by RFM account for highest monetary value with recent engagement, ideal for retention.
+	⚠️ At Risk customers show poor recency, low frequency, low monetary — target for re-engagement or credit risk alerts.
 
 
 📖 Project Process & Technical Walkthrough 
@@ -74,11 +81,13 @@ Available in outputs/charts/ folder:
 Detailed walkthrough of ETL process and workflows, key queries, customer loyalty analysis, reorder behavior, and advanced business insights is documented in the following:
 
 
-	sql/01_ETL_Data_Preparation.sql – Import, clean, and normalize datasets.
+	- `sql/01_ETL_Data_Preparation.sql` – Import, clean, and normalize datasets.
 	
-	sql/02_Core_Analysis.sql – Fraud analysis, risk profiling, repayment trends.
+	- `sql/02_Core_Analysis.sql` – Fraud analysis, risk profiling, repayment trends.
+
+	- `sql/03_RFM_Analysis.sql` – RFM segmentation scoring, views, and segment-based analysis
 	
-	python/data_preparation.py – Clean CSVs, transform schema, upload to MySQL.
+	- `python/data_preparation.py` – Clean CSVs, transform schema, upload to MySQL.
 
 🗃️ Project Folder Structure
 _The folder structure below is the expected project layout, written for readability. The GitHub interface may display folders in a different order._
@@ -87,7 +96,8 @@ credit-card-analytics/
 ├── README.md
 ├── sql/
 │   ├── 01_ETL_Data_Preparation.sql
-│   └── 02_Core_Analysis.sql
+│   ├── 02_Core_Analysis.sql
+│   └── 03_RFM_Analysis.sql
 ├── python/
 │   └── data_preparation.py
 ├── dashboards/
@@ -96,7 +106,8 @@ credit-card-analytics/
 │   ├── Credit_Card_Analytics_Dashboard.pdf
 │   └── charts/
 │       ├── Credit-Risk-Overview.png
-│       └── Fraud-Analysis.png
+│       ├── Fraud-Analysis.png
+│       └── RFM_Segmentation.png
 └── data/
     ├── credit_card_transactions_clean.csv
     └── uci_credit_risk.csv
